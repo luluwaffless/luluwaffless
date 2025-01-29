@@ -1,4 +1,4 @@
-### <p align="center">🇧🇷 [oi! sou lulu! 🫧](https://luuccss.github.io/)</p>
+### <p align="center">🇧🇷 [oi! sou lulu! 🫧](https://luluwaffless.github.io/)</p>
 
 -  estou atualmente trabalhando em projetos aleatórios. 💭
 -  estou atualmente aprendendo js, html, python, lua, css, e outros! 💡
@@ -6,7 +6,7 @@
 -  pronomes: qualquer um 😸
 
 
-### <p align="center">🇬🇧 [hey! i'm lulu! 🫧](https://luuccss.github.io/)</p>
+### <p align="center">🇬🇧 [hey! i'm lulu! 🫧](https://luluwaffless.github.io/)</p>
 
 -  i'm currently working on random projects that come to mind. 💭
 -  i'm currently learning js, html, python, lua, css and more! 💡
