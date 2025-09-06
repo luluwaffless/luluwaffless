@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "Arial Narrow";
+    src: url("../arialnarrow.ttf");
+}
+
+body, input, button {
+    background-color: black;
+    color: white;
+    font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+}
+
+button {
+    border: 1px solid white;
+    padding: 0.25em;
+}
+
+a {
+    color: white;
+    font-size: large;
+}
+
+#container {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+}
+
+.input {
+    margin: 0.25em;
+}
+
+#guide {
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    position: absolute;
+    text-align: center;
+    font-size: 2.5vw;
+    opacity: 0.25;
+}
+
+#synced {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+    font-size: 7.5vw;
+}
+
+#timer {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    position: absolute;
+    text-align: center;
+    font-size: 2.5vw;
+    opacity: 0.25;
+}

@@ -1,0 +1,27 @@
+@import url('https://fonts.cdnfonts.com/css/nunito');
+
+body {
+    font-size: x-large;
+    font-family: Nunito, sans-serif;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    border-bottom: none;
+    color: #fff;
+    font-weight: bold;
+    -webkit-text-stroke: 0.75px #000;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    margin: 0;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

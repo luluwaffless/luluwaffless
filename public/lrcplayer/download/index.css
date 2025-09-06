@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "Arial Narrow";
+    src: url("../arialnarrow.ttf");
+}
+
+body, input, button {
+    background-color: black;
+    color: white;
+    font-family: "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+}
+
+button, input {
+    border: 1px solid white;
+    padding: 0.25em;
+}
+
+a {
+    color: white;
+    font-size: large;
+}
+
+.container {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    text-align: center;
+}
+
+.input {
+    margin: 0.25em;
+}

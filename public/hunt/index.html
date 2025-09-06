@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>the hunt badge counter</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript" src="ids.js"></script>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <!-- it's tagging time -->
+        <meta name="description" content="a badge counter for roblox's the hunt: mega edition">
+        <meta name="theme-color" content="#0000ff">
+        <meta property="og:title" content="the hunt badge counter">
+        <meta property="og:description" content="a badge counter for roblox's the hunt: mega edition">
+        <meta property="og:url" content="https://luluwaffless.glitch.me/">
+        <meta property="og:image" content="https://luluwaffless.glitch.me/favicon.ico">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="the hunt badge counter">
+        <meta name="twitter:description" content="a badge counter for roblox's the hunt: mega edition">
+        <meta name="twitter:image" content="https://luluwaffless.glitch.me/favicon.ico">
+        <meta name="twitter:url" content="https://luluwaffless.glitch.me/">
+    </head>
+    <body>
+        <div class="input">
+            <input type="text" id="id" placeholder="insert an username"><button id="count"><img src="search.svg"></button>
+        </div><br>
+        <a id="userDetails" style="display: none;">
+            <div class="img">
+                <img id="headshot" src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>' style="display: inline-block;">
+            </div>
+            <div class="text">
+                <span id="name"></span>
+            </div>
+        </a><br>
+        <div id="cards" style="display: none;">
+            <div class="card" id="hub"></div>
+            <div class="card" id="regular"></div>
+            <div class="card" id="mega"></div>
+        </div>
+        <div style="left: 50%; top: calc(100% - 1em); transform: translate(-50%, -50%); position: absolute;"><a href="https://github.com/luluwaffless/hunt">made by luluwaffless</a></div>
+    </body>
+    <script type="text/javascript" src="index.js"></script>
+</html>

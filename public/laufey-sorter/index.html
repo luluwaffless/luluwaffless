@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Laufey Song Sorter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="https://i.scdn.co/image/ab6761610000e5eba1d45585ab07d4bd7fe53351">
+        <script type="text/javascript" src="index.js"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <br><br><br><br><br>
+            <div id="start">
+                <span>
+                    <b>Welcome to the Laufey Song Sorter!</b><br>Pick what song you like better in each battle to get an accurate list of your favorite songs.<br>Note: hitting 'No Opinion' or 'I Like Both' frequently may negatively affect your results.<br><br>
+                </span>
+                <button onclick="namMember = shuffle(namMember); initList(); showImage(); document.getElementById('battle').style = ''; document.getElementById('start').remove();">Start sorting!</button>
+            </div>
+            <div id="battle" style="display: none;">
+                <table id="mainTable">
+                    <tbody>
+                        <tr>
+                            <td id="battleNumber" colspan="3" style="padding-bottom: 10px;" style="text-align: center;">
+                                <b>Battle #1<br>0% sorted.</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="leftField" onclick="if (finishFlag == 0) sortList(-1);" rowspan="2" style="text-align: center;"></td>
+                            <td class="middleField" onclick="if (finishFlag == 0) sortList(0);" style="text-align: center; background-color: #80ff80;">
+                                I Like Both
+                            </td>
+                            <td id="rightField" onclick="if (finishFlag == 0) sortList(1);" rowspan="2" style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td class="middleField" onclick="if (finishFlag == 0) sortList(0);" style="text-align: center; background-color: #ffff80;">
+                                No Opinion
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="display: flex; justify-content: space-between;">
+                    <div style="display: inline-block; text-align: center; width: 100%;"><a id="leftPreview" href="#" onclick="if (document.getElementById('leftPreview').innerHTML == 'pause preview') { stopPreview() } else { Preview('left') }" >play preview</a></div>
+                    <div style="display: inline-block; text-align: center; width: 100%;"><a id="rightPreview" href="#" onclick="if (document.getElementById('rightPreview').innerHTML == 'pause preview') { stopPreview() } else { Preview('right') }">play preview</a></div>
+                </div>
+            </div>
+            <div id="result" style="display: none;"><br></div>
+        </div>
+    </body>
+</html>

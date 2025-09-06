@@ -1,0 +1,40 @@
+body {
+    color: #dcdcdc;
+    background-color: #4D4043;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+button {
+    font-family: 'Courier New', Courier, monospace;
+    color: #dcdcdc;
+    background-color: #191516;
+    border: none;
+}
+
+select {
+    font-family: 'Courier New', Courier, monospace;
+    color: #dcdcdc;
+    background-color: #191516;
+    border: none;
+}
+
+.player {
+    background-color: #191516;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center {
+    background-color: #191516;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

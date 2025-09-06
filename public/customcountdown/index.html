@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>defrosting countdown</title>
+        <link rel="icon" type="image/x-icon" href="ice.png">
+        <link rel="style" href="index.css">
+        <style id="player.style">
+            #player {
+                position: relative;
+                width: 490px;
+                height: 490px;
+            }
+
+            #player::before {
+                content: "";
+                background-image: url('ice.png');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 490px;
+                height: 490px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu" style="top: 50%; left: 50%; position: absolute; transform: translate(-50%, -50%); text-align: center;">
+            <select id="selection">
+                <option value="imageaudio">image + audio</option>
+                <option value="video">video</option>
+            </select><br>
+            <div id="imageaudiochoose">
+                <div style="margin: 5px;"><span>image to use: </span><label for="image" class="upload">upload file</label><input type="file" id="image" accept="image/*"> <span id="image.name"></span><br></div>
+                <div style="margin: 5px;"><span>audio to play: </span><label for="audio" class="upload">upload file</label><input type="file" id="audio" accept="audio/*"> <span id="audio.name"></span><br></div>
+            </div>
+            <div id="videochoose" style="display: none;">
+                <div style="margin: 5px;"><span>video to play: </span><label for="video" class="upload">upload file</label><input type="file" id="video" accept="video/mp4"> <span id="video.name"></span><br></div>
+            </div>
+            <div style="margin: 5px;"><span>defrost timestamp: </span><input id="date" type="date"> <input id="time" type="time"><br></div>
+            <div style="margin: 5px;"><span>player timestamp: <span><input id="timestamp" placeholder="HH:MM:SS" type="text"><br></div>
+            <div style="margin: 5px;"><label for="darkmode">dark mode <input id="darkmode" type="checkbox"></label> <label for="enableice">enable ice <input checked id="enableice" type="checkbox"></label> <label for="customaudio" id="customlabel">custom ice audio<input id="customaudio" type="checkbox"></label> <label style="display: none;" for="customice" id="icelabel" class="upload">upload file</label><input type="file" id="customice" accept="audio/*"> <span id="customice.name"></span><br></div>
+            <button id="start">start</button>
+        </div>
+        <div id="main" style="display: none;">
+            <span id="countdown" style="font-size: large; font-weight: bold;"></span><br>
+            <div id="player" style=" position: relative;">
+            </div><br>
+            <span id="timeleft" style="font-size: medium;"></span>
+        </div>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title id="head.title">Contagem regressiva</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="icon" type="image/x-icon" href="images/favicon.png">
+        <script type="text/javascript" src="index.js"></script>
+    </head>
+    <body>
+        <div class="center">
+            <div id="select">
+                <span style="font-weight: bold; font-size: larger;">Selecione uma data e hora:</span>
+                <br>
+                <input type="date" id="date" name="date" required>
+                <input type="time" id="time" name="time" required>
+                <br>
+                <button onclick='startCountdown(`${document.getElementById("date").value}, ${document.getElementById("time").value}`)'>OK</button><br><br>
+                <a href="https://luluwaffless.github.io/customcountdown/" style="color: white;">experimente a contagem customizada!</a>
+            </div>
+            <div id="time" style="font-size: larger;">
+                <span id="time.title" style="font-weight: bold;"></span>
+                <div id="counter" style="display: none;">
+                    <span id="dias"></span><br>
+                    <span id="horas"></span><br>
+                    <span id="minutos"></span><br>
+                    <span id="segundos"></span><br>
+                </span>
+            </div>
+        </div>
+    </body>
+</html>
