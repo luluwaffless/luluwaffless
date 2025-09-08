@@ -82,18 +82,28 @@ syncButton.addEventListener('click', () => {
                         started = true;
                         currentWord = 1;
                         currentLyric = i;
-                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${match[3].trim().split(/[ \-]/)[0]}`);
+                        const words = match[3].trim().match(/[^\s-]+|-/g);
+                        const firstWord = words[0].replace(/,$/, '');
+                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${firstWord}`);
                         guide.innerHTML = match[3].trim();
-                        synced.innerHTML = match[3].trim().split(/[ \-]/)[0];
+                        synced.innerHTML = firstWord;
                     }, ((parseInt(match[1], 10) * 60 + parseFloat(match[2])) * 1000) / audio.playbackRate);
                 };
             };
         }, 3000);
         document.body.addEventListener('keydown', (e) => {
             if (e.key == "Enter" && started) {
-                if (currentWord < lyrics[currentLyric].split(/[ \-]/).length - 1) {
+                const words = lyrics[currentLyric].trim().match(/[^\s-]+|-/g);
+                if (currentWord < words.length - 1) {
                     currentWord++;
-                    synced.innerHTML += " " + lyrics[currentLyric].trim().split(/[ \-]/)[currentWord];
+                    const separator = words[currentWord] === '-' ? '-' : ' ';
+                    if (words[currentWord] === '-') currentWord++;
+                    let nextWord = words[currentWord];
+                    let currentDisplay = synced.innerHTML;
+                    if (currentDisplay.endsWith(',')) currentDisplay = currentDisplay.slice(0, -1);
+                    nextWord = nextWord.replace(/,$/, '');
+                    synced.innerHTML = currentDisplay + separator + nextWord;
+                    if (words[currentWord + 1] && words[currentWord].endsWith(',')) synced.innerHTML += ',';
                     syncedLyrics.push(`[${getFormattedTime(audio.currentTime)}] ${synced.innerHTML}`);
                 };
             }
