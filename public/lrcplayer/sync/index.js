@@ -98,15 +98,14 @@ syncButton.addEventListener('click', () => {
                     currentWord++;
                     const separator = words[currentWord] === '-' ? '-' : ' ';
                     if (words[currentWord] === '-') currentWord++;
+                    let currentText = synced.innerHTML.replace(/[,.]$/, '');
                     let nextWord = words[currentWord];
-                    let currentDisplay = synced.innerHTML;
-                    if (currentDisplay.endsWith(',')) currentDisplay = currentDisplay.slice(0, -1);
-                    nextWord = nextWord.replace(/,$/, '');
-                    synced.innerHTML = currentDisplay + separator + nextWord;
-                    if (words[currentWord + 1] && words[currentWord].endsWith(',')) synced.innerHTML += ',';
+                    const hasComma = words[currentWord - 1] && words[currentWord - 1].endsWith(',');
+                    if (hasComma) currentText += ',';
+                    synced.innerHTML = currentText + separator + nextWord;
                     syncedLyrics.push(`[${getFormattedTime(audio.currentTime)}] ${synced.innerHTML}`);
                 };
-            }
+            };
         });
         audio.addEventListener('ended', () => {
             document.exitFullscreen();
