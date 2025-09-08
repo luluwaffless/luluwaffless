@@ -10,7 +10,7 @@
   <a href='https://ko-fi.com/luluwaffless' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </p>
 
-- i am an self-taught, avid programmer 💻
+- i am a self-taught, avid programmer 💻
 - i'm currently in the first year of highschool, focusing on getting a degree in computer science/software engineering 📚
 - i have a strong interest in automation and backend development 🤖
 - i go by any pronouns 😸
