@@ -82,18 +82,18 @@ syncButton.addEventListener('click', () => {
                         started = true;
                         currentWord = 1;
                         currentLyric = i;
-                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${match[3].trim().split(" ")[0]}`);
+                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${match[3].trim().split(/[ \-]/)[0]}`);
                         guide.innerHTML = match[3].trim();
-                        synced.innerHTML = match[3].trim().split(" ")[0];
+                        synced.innerHTML = match[3].trim().split(/[ \-]/)[0];
                     }, ((parseInt(match[1], 10) * 60 + parseFloat(match[2])) * 1000) / audio.playbackRate);
                 };
             };
         }, 3000);
         document.body.addEventListener('keydown', (e) => {
             if (e.key == "Enter" && started) {
-                if (currentWord < lyrics[currentLyric].split(" ").length - 1) {
+                if (currentWord < lyrics[currentLyric].split(/[ \-]/).length - 1) {
                     currentWord++;
-                    synced.innerHTML += " " + lyrics[currentLyric].trim().split(" ")[currentWord];
+                    synced.innerHTML += " " + lyrics[currentLyric].trim().split(/[ \-]/)[currentWord];
                     syncedLyrics.push(`[${getFormattedTime(audio.currentTime)}] ${synced.innerHTML}`);
                 };
             }
