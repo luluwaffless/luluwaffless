@@ -93,16 +93,20 @@ syncButton.addEventListener('click', () => {
         }, 3000);
         document.body.addEventListener('keydown', (e) => {
             if (e.key == "Enter" && started) {
-                const words = lyrics[currentLyric].trim().match(/[^\s-]+|-/g);
+                // Split the line into words, preserving punctuation with the next word
+                const line = lyrics[currentLyric].trim();
+                const words = line.split(/(?<=[^,])\s+|-/).map(w => w.trim()).filter(Boolean);
+                
                 if (currentWord < words.length - 1) {
                     currentWord++;
-                    const separator = words[currentWord] === '-' ? '-' : ' ';
-                    if (words[currentWord] === '-') currentWord++;
-                    let currentText = synced.innerHTML.replace(/[,.]$/, '');
-                    let nextWord = words[currentWord];
-                    const hasComma = words[currentWord - 1] && words[currentWord - 1].endsWith(',');
-                    if (hasComma) currentText += ',';
-                    synced.innerHTML = currentText + separator + nextWord;
+                    // If we hit a hyphen, skip it and move to next word
+                    if (words[currentWord] === '-') {
+                        currentWord++;
+                    }
+                    
+                    // Build the display text from all words up to current
+                    const displayWords = words.slice(0, currentWord + 1);
+                    synced.innerHTML = displayWords.join(' ');
                     syncedLyrics.push(`[${getFormattedTime(audio.currentTime)}] ${synced.innerHTML}`);
                 };
             };
