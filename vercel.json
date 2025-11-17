@@ -1,21 +1,9 @@
 {
-  "version": 2,
-  "builds": [
+  "redirects": [
     {
-      "src": "vercel.js",
-      "use": "@vercel/node"
+      "source": "/(.*)",
+      "destination": "https://luluwaffless.xyz/$1",
+      "permanent": true
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "vercel.js"
-    }
-  ],
-  "git": {
-    "deploymentEnabled": {
-      "main": true,
-      "default": false
-    }
-  }
+  ]
 }
