@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>lrcplayer</title>
-        <link rel="stylesheet" href="https://luluwaffless.vercel.app/lrcplayer/index.css" type="text/css">
+        <link rel="stylesheet" href="index.css" type="text/css">
     </head>
     <body>
         <div id="container">
             <div class="input"><label for="audioInput">audio: </label> <button id="audioChoose" onclick="document.getElementById('audioInput').click()">choose file</button> <span id="audioName"></span> <input type="file" id="audioInput" accept="audio/*" /><br></div>
             <div class="input"><label for="lrcInput">lyrics: </label> <button id="lrcChoose" onclick="document.getElementById('lrcInput').click()">choose file</button> <span id="lrcName"></span> <input type="file" id="lrcInput" accept=".txt,.lrc" /><br></div>
-            <div class="input"><a href="https://luluwaffless.vercel.app/lrcplayer/download/">don't have one? click here to download your lyrics file</a><br></div>
+            <div class="input"><a href="download/">don't have one? click here to download your lyrics file</a><br></div>
             <!DOCTYPE html>
             <div class="input"><label for="undercase">lowercase lyrics: </label> <input type="checkbox" id="undercase" checked /><br></div>
             <div class="input"><label for="bg">background color: </label> <input type="text" id="bg" value="black" placeholder="must comply with CSS color standards" /><br></div>
@@ -19,5 +19,5 @@
         </div>
         <div id="lyrics" style="display: none;"></div>
     </body>
-    <script src="https://luluwaffless.vercel.app/lrcplayer/index.js" type="text/javascript"></script>
+    <script src="index.js" type="text/javascript"></script>
 </html>

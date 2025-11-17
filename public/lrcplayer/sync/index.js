@@ -82,31 +82,18 @@ syncButton.addEventListener('click', () => {
                         started = true;
                         currentWord = 1;
                         currentLyric = i;
-                        const words = match[3].trim().match(/[^\s-]+|-/g);
-                        const firstWord = words[0].replace(/,$/, '');
-                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${firstWord}`);
+                        syncedLyrics.push(`[${match[1]}:${match[2]}] ${match[3].trim().split(" ")[0]}`);
                         guide.innerHTML = match[3].trim();
-                        synced.innerHTML = firstWord;
+                        synced.innerHTML = match[3].trim().split(" ")[0];
                     }, ((parseInt(match[1], 10) * 60 + parseFloat(match[2])) * 1000) / audio.playbackRate);
                 };
             };
         }, 3000);
         document.body.addEventListener('keydown', (e) => {
             if (e.key == "Enter" && started) {
-                // Split the line into words, preserving punctuation with the next word
-                const line = lyrics[currentLyric].trim();
-                const words = line.split(/(?<=[^,])\s+|-/).map(w => w.trim()).filter(Boolean);
-                
-                if (currentWord < words.length - 1) {
+                if (currentWord < lyrics[currentLyric].split(" ").length - 1) {
                     currentWord++;
-                    // If we hit a hyphen, skip it and move to next word
-                    if (words[currentWord] === '-') {
-                        currentWord++;
-                    }
-                    
-                    // Build the display text from all words up to current
-                    const displayWords = words.slice(0, currentWord + 1);
-                    synced.innerHTML = displayWords.join(' ');
+                    synced.innerHTML += " " + lyrics[currentLyric].trim().split(" ")[currentWord];
                     syncedLyrics.push(`[${getFormattedTime(audio.currentTime)}] ${synced.innerHTML}`);
                 };
             };

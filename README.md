@@ -1,4 +1,4 @@
-# <p align="center">[hey! i'm lulu! 👋](https://luluwaffless.vercel.app/)</p>
+# <p align="center">[hey! i'm lulu! 👋](https://luluwaffless.xyz/)</p>
 <p align="center">
   <a href="https://twitter.com/luluwaffless" target="blank"><img align="center" src="https://cdn.simpleicons.org/x/_/ffffff" alt="luluwaffless" height="40" width="40" /></a>
   <a href="https://discord.com/users/1381113327492530187" target="blank"><img align="center" src="https://cdn.simpleicons.org/discord/000000/ffffff" alt="wplacerbot" height="40" width="40" /></a>
