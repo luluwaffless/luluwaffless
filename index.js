@@ -1,21 +1,45 @@
-import express from 'express';
-import axios from 'axios';
+import { readdirSync, appendFileSync } from "node:fs";
+import { normalize } from "node:path";
+import stripAnsi from "strip-ansi";
+import chalk from "chalk";
 import cors from 'cors';
-const port = process.env.PORT || 80;
-const handleRequest = async (axiosCall, res) => {
-    try {
-        const response = await axiosCall();
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).send(error.message);
-    };
+const port = Number(process.env.PORT) || 80;
+const file = (name) => normalize(`${import.meta.dirname}/${name}`);
+const log = async (data) => {
+    const str = `${chalk.green(`[${new Date().toISOString()}]`)} ${data}`;
+    console.log(str);
+    appendFileSync(`logs.log`, `${stripAnsi(str)}\n`);
 };
-express()
-    .use(cors())
-    .use(express.static('public'))
-    .use(express.json())
-    .post('/users', async (req, res) => await handleRequest(() => axios.post('https://users.roblox.com/v1/usernames/users', req.body), res))
-    .get('/thumbnail', async (req, res) => await handleRequest(() => axios.get(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${req.query.id}&size=720x720&format=png`), res))
-    .get('/badges/:id', async (req, res) => await handleRequest(() => axios.get(`https://badges.roblox.com/v1/badges/${req.params.id}`), res))
-    .get('/dates/:id', async (req, res) => await handleRequest(() => axios.get(`https://badges.roblox.com/v1/users/${req.params.id}/badges/awarded-dates?badgeIds=${req.query.ids}`), res))
-    .listen(port, () => console.log(`http://localhost${port !== 80 ? `:${port}` : ''}`));
+
+readdirSync("servers").forEach(async f => {
+    const { name, subport, server } = await import(`./servers/${f}`);
+
+    // logger
+    server.use((req, _, next) => {
+        next();
+        const logs = [`${chalk.yellow(`(${name})`)} ${req.socket.remoteAddress}:${req.socket.remotePort}`, `${chalk.blue(req.method)} ${req.originalUrl} ${chalk.blue(`HTTP/${req.httpVersion}`)}`];
+        if (req.rawHeaders && req.rawHeaders.length) for (let i = 0; i < req.rawHeaders.length; i += 2) logs.push(`${chalk.blue(`${req.rawHeaders[i]}:`)} ${req.rawHeaders[i + 1]}`);
+        else for (const [k, v] of Object.entries(req.headers)) logs.push(`${chalk.blue(`${k}:`)} ${v}`);
+        logs.push("");
+        if (req.rawBody && req.rawBody.length) {
+            const text = req.rawBody.toString("utf8");
+            const looksBinary = /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(text);
+            logs.push(looksBinary ? req.rawBody.toString("base64") + " (base64)" : text);
+        } else logs.push("-");
+        logs.push("");
+        log(logs.join("\n"));
+    });
+
+    // basic bot protection
+    server.use((req, res, next) => {
+        if (req.headers["User-Agent"]?.includes("Mozilla/5.0") || req.headers["user-agent"]?.includes("Mozilla/5.0")) next();
+        else res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    });
+
+    // universal configs
+    server.use(cors()); // cors
+    server.get("/favicon.ico", (_, r) => r.sendFile(file(`favicon.ico`))); // favicon
+    server.use((_, r) => r.status(404).sendFile(file(`404.html`))); // 404 page
+
+    server.listen(port + subport, () => log(`${name} running at http://localhost${port + subport !== 80 ? `:${port + subport}` : ""}`));
+});
