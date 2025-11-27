@@ -1,5 +1,11 @@
 import express from 'express';
-export const name = "files";
-export const subport = 1;
-export const server = express()
-    .use(express.static("files"));
+export default {
+  name: "files",
+  subport: 1,
+  methods: [
+    {
+      method: "use",
+      args: [express.static("files")]
+    }
+  ]
+};
