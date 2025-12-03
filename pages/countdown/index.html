@@ -14,7 +14,7 @@
                 <input type="date" id="date" name="date" required>
                 <input type="time" id="time" name="time" required>
                 <br>
-                <button onclick='startCountdown(`${document.getElementById("date").value}, ${document.getElementById("time").value}`)'>OK</button><br><br>
+                <button onclick='startCountdown(new Date(`${document.getElementById("date").value} ${document.getElementById("time").value}`).getTime())'>OK</button><br><br>
                 <a href="/customcountdown" style="color: white;">experimente a contagem customizada!</a>
             </div>
             <div id="time" style="font-size: larger;">
@@ -27,5 +27,9 @@
                 </span>
             </div>
         </div>
+        <script>
+            const p = new URLSearchParams(window.location.search);
+            if (p?.get("t") && Number(p.get("t")) > Date.now()) startCountdown(new Date(Number(p.get("t"))).getTime());
+        </script>
     </body>
 </html>

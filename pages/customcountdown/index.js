@@ -40,8 +40,15 @@ selection.addEventListener("change", function () {
 });
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     darkmode.checked = true;
-    darkmode.dispatchEvent(new Event('change'));
+    document.documentElement.setAttribute('data-theme', 'dark');
 };
+darkmode.addEventListener("change", function () {
+    if (this.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    };
+});
 enableice.addEventListener("change", function () {
     if (this.checked) {
         playice = true;

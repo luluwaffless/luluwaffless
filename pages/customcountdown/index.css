@@ -55,7 +55,7 @@ button {
     font-family: Nunito;
 }
 
-@media (prefers-color-scheme: dark) {
+[data-theme="dark"] {
     body {
         background-color: black;
         color: white;

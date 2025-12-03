@@ -1,15 +1,19 @@
 var distance = 0;
 var CountDate = "";
-var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-function startCountdown(arg1) {
-    CountDate = `${months[parseInt(arg1.substring(5, 7)) - 1]} ${arg1.substring(8, 10)} ${arg1.substring(0, 4)}, ${arg1.substring(12, 17)}:00`;
+function startCountdown(t) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('t', t);
+    window.history.pushState(null, '', url.toString());
+
+    const date = new Date(t);
+    CountDate = date.toLocaleString();
     document.getElementById("head.title").innerHTML = "Contagem regressiva para: " + CountDate;
     document.getElementById("time.title").innerHTML = "Contagem regressiva para: " + CountDate;
     document.getElementById("select").style = "display: none;";
     document.getElementById("counter").style = "";
 
-    var countDownDate = new Date(CountDate).getTime();
+    var countDownDate = date.getTime();
     var x = setInterval(function () {
         var now = new Date().getTime();
         distance = countDownDate - now;

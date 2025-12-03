@@ -1,4 +1,3 @@
-import express from "express";
 import axios from "axios";
 const handleRequest = async (axiosCall, res) => {
   try {
@@ -14,11 +13,11 @@ export default {
   methods: [
     {
       method: "use",
-      args: [express.json()]
+      args: ['express.json()']
     },
     {
       method: "use",
-      args: [express.static("pages")]
+      args: ['express.static("pages")']
     },
     {
       method: "post",
@@ -36,5 +35,12 @@ export default {
       method: "get",
       args: ["/dates/:id", async (req, res) => await handleRequest(() => axios.get(`https://badges.roblox.com/v1/users/${req.params.id}/badges/awarded-dates?badgeIds=${req.query.ids}`), res)]
     },
+    {
+      method: "use",
+      args: ["/r", (req, res, next) => {
+        if (req.query.url) res.redirect(req.query.url);
+        else next();
+      }]
+    }
   ]
 };
