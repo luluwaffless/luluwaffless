@@ -1,10 +1,11 @@
-import { readdirSync, appendFileSync, readFileSync } from "node:fs";
+import { readdirSync, appendFileSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { normalize } from "node:path";
 import stripAnsi from "strip-ansi";
 import express from "express";
 import chalk from "chalk";
 import axios from "axios";
 import cors from "cors";
+
 const file = (name) => normalize(`${import.meta.dirname}/${name}`);
 const log = (data, file = `logs`, logInConsole = true, error) => {
     const date = new Date();
@@ -42,13 +43,17 @@ const report = async (ip, date, requests) => {
         return false;
     };
 };
+
 const port = Number(process.env.PORT) || 80;
 const blockedPaths = readFileSync("blockedPaths.txt", "utf8").replace(/\r/g, "").split("\n");
-const flaggedIps = {};
+const flaggedIps = existsSync("flaggedIps.json") ? JSON.parse(readFileSync("flaggedIps.json", "utf8")) : {};
+const saveFlaggedIps = () => writeFileSync("flaggedIps.json", JSON.stringify(flaggedIps, null, 2));
+
 readdirSync("servers").forEach(async f => {
     const serverModule = await import(`./servers/${f}`);
     const { name, subport, methods } = serverModule.default;
     const server = express();
+
     // logger
     server.use((req, res, next) => {
         res.on("finish", () => {
@@ -66,15 +71,23 @@ readdirSync("servers").forEach(async f => {
         });
         next();
     });
+
     // security middleware
     server.use(async (req, res, next) => {
-        if (!blockedPaths.some(p => req.path.toLowerCase().startsWith(p.toLowerCase()))) return next();
         const date = new Date();
         const time = date.getTime();
+        const isBlockedPath = (blockedPaths.some(p => req.path.toLowerCase().startsWith(p.toLowerCase())));
         const ip = req.headers["cf-connecting-ip"] || req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+        if (flaggedIps[ip]) {
+            flaggedIps[ip].hits = flaggedIps[ip].hits.filter(t => (time - t) < 900000);
+            saveFlaggedIps();
+        };
+
+        const isBlockedIp = (flaggedIps[ip] && flaggedIps[ip].hits.length >= 5);
+        if (!isBlockedPath && !isBlockedIp) return next();
+
         if (!flaggedIps[ip]) flaggedIps[ip] = { lastReported: 0, hits: [], requests: {} };
-        flaggedIps[ip].hits.push(time);
-        flaggedIps[ip].hits = flaggedIps[ip].hits.filter(t => (time - t) < 900000);
+        if (isBlockedPath) flaggedIps[ip].hits.push(time);
         if (!flaggedIps[ip].requests[req.path]) flaggedIps[ip].requests[req.path] = 0;
         flaggedIps[ip].requests[req.path]++;
         if (flaggedIps[ip].hits.length >= 5) {
@@ -84,13 +97,16 @@ readdirSync("servers").forEach(async f => {
                 if (s) flaggedIps[ip].lastReported = time;
             };
         } else next();
+        saveFlaggedIps();
     });
+
     // universal config
     server.use(cors());
     methods.forEach(({ method, args }) => {
         const mapped = args.map(a => typeof a === "string" && !a.startsWith("/") ? eval(a) : a);
         server[method](...mapped);
     });
+
     // universal static files
     server.get("/favicon.ico", (_, r) => r.sendFile(file(`favicon.ico`))); // favicon
     server.use((_, r) => r.status(404).sendFile(file(`404.html`))); // 404 page
