@@ -100,6 +100,9 @@ readdirSync("servers").forEach(async f => {
         saveFlaggedIps();
     });
 
+    // health check
+    server.get("/health", (_, r) => r.status(200).json({ hello: "world", time: Date.now() }));
+
     // universal config
     server.use(cors());
     methods.forEach(({ method, args }) => {
