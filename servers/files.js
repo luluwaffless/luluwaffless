@@ -18,12 +18,12 @@ export default {
         if (files.length === 0 || files.some(file => file.name === 'index.html')) return next();
         const e = files.map(file => {
           const filepath = path.join(folder, file.name);
-          if (file.isDirectory()) return `<a class="e" href="${file.name}/">${file.name}/</a>`;
+          if (file.isDirectory()) return `<div class="e"><img class="icon" src="/.icons/folder.svg"><a href="${file.name}/">${file.name}/</a></div>`;
           const mime = lookup(filepath) || "";
-          if (mime.startsWith("audio/")) return `<a class="e" href="${file.name}"><audio src="${file.name}" controls></audio><div>${file.name}</div></a>`;
-          if (mime.startsWith("image/")) return `<a class="e" href="${file.name}"><img src="${file.name}" loading="lazy"><div>${file.name}</div></a>`;
-          if (mime.startsWith("video/")) return `<a class="e" href="${file.name}"><video src="${file.name}" controls></video><div>${file.name}</div></a>`;
-          return `<a class="e" href="${file.name}"><div>${file.name}</div></a>`;
+          if (mime.startsWith("audio/")) return `<div class="e"><audio src="${file.name}" controls></audio><div><a href="${file.name}" download>${file.name}</a></div></div>`;
+          if (mime.startsWith("image/")) return `<div class="e"><img src="${file.name}" loading="lazy" class="display"><div><a href="${file.name}" download>${file.name}</a></div></div>`;
+          if (mime.startsWith("video/")) return `<div class="e"><video src="${file.name}" controls></video><div><a href="${file.name}" download>${file.name}</a></div></div>`;
+          return `<div class="e"><img class="icon" src="/.icons/${file.name.split(".").at(-1)}.svg"><a href="${file.name}" download>${file.name}</a></div>`;
         });
         res.send(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${req.path}</title><link rel="stylesheet" href="/index.css"></head><body><div class="m">${e.join('')}</div></body></html>`);
       }]
